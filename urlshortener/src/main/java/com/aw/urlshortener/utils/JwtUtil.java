@@ -25,17 +25,19 @@ public class JwtUtil {
     }
 
     public String extractEmail(String token) {
-        Jwts.parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-        return token;
     }
 
     public boolean isValid(String token) {
-        try { extractEmail(token); return true; }
+        try {
+            extractEmail(token);
+
+            return true; }
         catch (Exception e) { return false; }
     }
 }
